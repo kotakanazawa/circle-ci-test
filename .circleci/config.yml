@@ -1,9 +1,24 @@
 version: 2.1
 
+commands:
+  sayhello:
+    description: 'a very simple command'
+    steps:
+      - run: echo 'hello world'
+
+# 実行させたいジョブを定義する
 jobs:
-  build:
+  test: # job name
     docker:
       - image: circleci/node:4.8.2
     steps:
       - checkout
-      - run: echo 'hello world'
+      - run:
+          name: echo hello world
+          command: echo 'hello world'
+
+# ジョブを実行させたいタイミングを定義する
+workflows:
+  test_workflow: # workflow name
+    jobs:
+      - test
